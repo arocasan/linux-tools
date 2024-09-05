@@ -16,6 +16,66 @@ install_packages_scripted "$PKG_DIR/aroca_script_pkgs.conf"
 info_msg "Lets go dark mode"
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
-info_msg "mounting backups"
-sudo ntfs-3g /dev/sdc1 ~/backup 
+info_msg "virsh isolated network defenition"
+sudo virsh net-define /tmp/isolated.xml
 
+info_msg "mounting backups"
+sudo ntfs-3g /dev/sdc1 ~/backup
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Ask for confirmation
+read -p "Do you want to proceed with the command: sudo rsync -avz --progress --partial ~/backup/ubuntu-backup/vms/* /var/lib/libvirt/images? (y/n): " answer
+
+# Check if the answer is 'y' or 'Y'
+if [[ $answer == [Yy] ]]; then
+    echo "Proceeding with rsync..."
+    sudo rsync -avz --progress --partial ~/backup/ubuntu-backup/vms/* /var/lib/libvirt/images
+else
+    echo "Operation cancelled."
+fi
