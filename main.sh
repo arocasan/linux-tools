@@ -12,3 +12,10 @@ echo "Welcome"
 info_msg "Heyo"
 install_packages "$PKG_DIR/aroca_pkgs.conf" "$PKG_DIR/aroca_aur_pkgs.conf"
 install_packages_scripted "$PKG_DIR/aroca_script_pkgs.conf"
+
+info_msg "Lets go dark mode"
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+info_msg "mounting backups"
+sudo ntfs-3g /dev/sdc1 ~/backup 
+
