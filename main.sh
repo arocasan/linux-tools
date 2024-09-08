@@ -25,6 +25,9 @@ gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'nothi
 info_msg "Disable screen blackout"
 gsettings set org.gnome.desktop.session idle-delay 0
 
+info_msg "Setting keyboard input to Swedish Mac"
+gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'se+mac')]"
+
 info_msg "virsh isolated network defenition"
 sudo virsh net-define /tmp/isolated.xml
 
