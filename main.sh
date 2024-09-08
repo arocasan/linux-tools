@@ -16,6 +16,9 @@ install_packages_scripted "$PKG_DIR/aroca_script_pkgs.conf"
 info_msg "Lets go dark mode"
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
+info_msg "Set symbolic wallpaper as bakground"
+gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/gnome/symbolic-l.png'
+
 info_msg "Disable sleep inactivity"
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 
