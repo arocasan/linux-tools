@@ -84,7 +84,7 @@ read -p "Do you want to proceed with the command: sudo rsync -avz --progress --p
 # Check if the answer is 'y' or 'Y'
 if [[ $answer == [Yy] ]]; then
     echo "Proceeding with rsync..."
-    sudo rsync -avz --progress --partial ~/backup/ubuntu-backup/vms/* /var/lib/libvirt/images
+    sudo rsync -avzt --progress --partial ~/backup/ubuntu-backup/vms/* /var/lib/libvirt/images
 else
     echo "Operation cancelled."
 fi
