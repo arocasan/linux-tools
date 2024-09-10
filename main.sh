@@ -48,7 +48,7 @@ if [[ $answer == [Yy] ]]; then
     echo "Proceeding with rsync..."
     sudo rsync -avzt --progress --partial ~/backup/ubuntu-backup/vms/* /var/lib/libvirt/images
 
-    virsh_define
+  virsh_define
 
 else
     echo "Operation cancelled."
