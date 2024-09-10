@@ -18,6 +18,8 @@ VM_DEFENITION="aroca-services aroca-worker-01 aroca-worker-02"
 
 virsh_define(){
   info_msg "Will define and start the following VM's ${VM_DEFENITION}"
+  cd /var/lib/libvirt/images
+  
   for vm in $VM_DEFENITION; do
   sudo virsh define $vm.xml   
   sudo virsh autostart $vm
