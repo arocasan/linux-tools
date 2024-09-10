@@ -8,6 +8,8 @@ source "$SCRIPT_DIR/install_packages.sh"
 
 
 source ./scripts/packages.sh
+source ./scripts/vm_defeniton.sh
+
 echo "Welcome"
 info_msg "Heyo"
 install_packages "$PKG_DIR/aroca_pkgs.conf" "$PKG_DIR/aroca_aur_pkgs.conf"
@@ -38,59 +40,16 @@ info_msg "mounting backups"
 sudo ntfs-3g /dev/sdc1 ~/backup
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Ask for confirmation
-read -p "Do you want to proceed with the command: sudo rsync -avz --progress --partial ~/backup/ubuntu-backup/vms/* /var/lib/libvirt/images? (y/n): " answer
+read -p "Do you want to proceed with full virsh setup" answer
 
 # Check if the answer is 'y' or 'Y'
 if [[ $answer == [Yy] ]]; then
     echo "Proceeding with rsync..."
     sudo rsync -avzt --progress --partial ~/backup/ubuntu-backup/vms/* /var/lib/libvirt/images
+
+    virsh_define
+
 else
     echo "Operation cancelled."
 fi
