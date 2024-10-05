@@ -22,21 +22,26 @@ virsh_define(){
 
  sudo nmcli connection add type bridge con-name br0 ifname br0
  sudo nmcli connection modify br0 ipv4.method auto
- sudo nmcli connection modify br0 ipv4.method manual ipv4.addresses 192.168.1.29/24 ipv4.gateway 192.168.1.1 ipv4.dns 8.8.8.8
+ sudo nmcli connection modify br0 ipv4.method manual ipv4.addresses 10.13.37.29/24 ipv4.gateway 10.13.37.1 ipv4.dns 8.8.8.8
  sudo nmcli connection add type ethernet con-name eth0-slave ifname enp0s31f6 master br0
- sudo nmcli connection modify eth0-slave ipv4.method ignore
  sudo nmcli connection up br0
  sudo nmcli connection up eth0-slave
+ sudo iptables -N DOCKER-USER || true
+ sudo iptables -I DOCKER-USER 1 -i docker0 -o docker0 -j RETURN
+ sudo iptables -I DOCKER-USER 2 -i br-+ -o br-+ -j RETURN
+ sudo iptables -I DOCKER-USER 3 -i br0 -o br0 -j ACCEPT
+ sudo iptables -I DOCKER-USER 5 -i vibr0 -o vibr0 -j ACCEPT
+ sudo iptables -I DOCKER-USER 6 -i lxcbr0 -o lxcbr0 -j ACCEPT
   
   echo "Verifyin configuration"
 
   ip addr show br0
   bridge vlan show
 
-
+ sudo systemctl restart NetworkManager
 
   cd /var/lib/libvirt/images
-  
+ 
   for vm in $VM_DEFENITION; do
   sudo virsh define $vm.xml   
   sudo virsh autostart $vm
@@ -44,4 +49,4 @@ virsh_define(){
   done
 }
 
-
+virsh_define
